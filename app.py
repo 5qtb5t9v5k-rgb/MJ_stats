@@ -60,11 +60,12 @@ def main() -> None:
         st.markdown(f"""
         <style>
             .logo-container {{
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                z-index: 999;
+                position: fixed !important;
+                top: 80px !important;
+                right: 20px !important;
+                z-index: 999 !important;
                 opacity: 0.9;
+                pointer-events: none;
             }}
             .logo-container img {{
                 width: 60px;
@@ -73,11 +74,12 @@ def main() -> None:
                         drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
                         drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
                 border-radius: 6px;
+                pointer-events: auto;
             }}
             @media (max-width: 768px) {{
                 .logo-container {{
-                    top: 5px;
-                    right: 5px;
+                    top: 70px !important;
+                    right: 10px !important;
                 }}
                 .logo-container img {{
                     width: 50px;
@@ -93,11 +95,12 @@ def main() -> None:
         st.markdown("""
         <style>
             .logo-container {{
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                z-index: 999;
+                position: fixed !important;
+                top: 80px !important;
+                right: 20px !important;
+                z-index: 999 !important;
                 opacity: 0.9;
+                pointer-events: none;
             }}
             .logo-placeholder {{
                 background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -109,6 +112,7 @@ def main() -> None:
                            0 0 15px rgba(231, 76, 60, 0.3),
                            0 0 25px rgba(231, 76, 60, 0.2);
                 transform: rotate(-2deg);
+                pointer-events: auto;
             }}
             .logo-placeholder h1 {{
                 color: #1a237e;
@@ -120,8 +124,8 @@ def main() -> None:
             }}
             @media (max-width: 768px) {{
                 .logo-container {{
-                    top: 5px;
-                    right: 5px;
+                    top: 70px !important;
+                    right: 10px !important;
                 }}
                 .logo-placeholder {{
                     padding: 4px 8px;
