@@ -47,151 +47,70 @@ def main() -> None:
             logo_found = True
             break
     
-    st.title("🏒 Mailajoket Tilastoselain")
-    st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    # Logo oikeaan yläkulmaan otsikon viereen (ei kiinteä, häviää scrollatessa)
+    col_title, col_logo = st.columns([4, 1])
     
-    # Logo oikeaan yläkulmaan (kiinteä JavaScriptillä)
-    if logo_found:
-        # Lue logo ja muunna base64:ksi
-        with open(logo_path_str, "rb") as img_file:
-            img_data = base64.b64encode(img_file.read()).decode()
-            img_ext = logo_path_str.split('.')[-1].lower()
-            mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
-        
-        st.markdown(f"""
-        <style>
-            #mj-logo-fixed {{
-                position: fixed !important;
-                top: 80px !important;
-                right: 20px !important;
-                z-index: 999999 !important;
-                opacity: 0.9;
-                pointer-events: none;
-            }}
-            #mj-logo-fixed img {{
-                width: 60px;
-                height: auto;
-                filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
-                        drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
-                        drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
-                border-radius: 6px;
-                pointer-events: auto;
-            }}
-            @media (max-width: 768px) {{
-                #mj-logo-fixed {{
-                    top: 70px !important;
-                    right: 10px !important;
-                }}
-                #mj-logo-fixed img {{
-                    width: 50px;
-                }}
-            }}
-        </style>
-        <div id="mj-logo-fixed">
-            <img src="data:{mime_type};base64,{img_data}" />
-        </div>
-        <script>
-            (function() {{
-                // Varmista että logo pysyy kiinteänä scrollatessa
-                var logo = document.getElementById('mj-logo-fixed');
-                if (logo) {{
-                    logo.style.position = 'fixed';
-                    logo.style.top = '80px';
-                    logo.style.right = '20px';
-                    
-                    // Päivitä sijainti scrollatessa
-                    window.addEventListener('scroll', function() {{
-                        logo.style.position = 'fixed';
-                        logo.style.top = '80px';
-                        logo.style.right = '20px';
-                    }});
-                    
-                    // Päivitä sijainti resize-tapahtumassa
-                    window.addEventListener('resize', function() {{
-                        logo.style.position = 'fixed';
-                        logo.style.top = '80px';
-                        logo.style.right = '20px';
-                    }});
-                }}
-            }})();
-        </script>
-        """, unsafe_allow_html=True)
-    else:
-        # Placeholder logo
-        st.markdown("""
-        <style>
-            #mj-logo-fixed {{
-                position: fixed !important;
-                top: 80px !important;
-                right: 20px !important;
-                z-index: 999999 !important;
-                opacity: 0.9;
-                pointer-events: none;
-            }}
-            .logo-placeholder {{
-                background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-                border: 2px solid #e74c3c;
-                border-radius: 6px;
-                padding: 6px 10px;
-                text-align: center;
-                box-shadow: 0 0 8px rgba(231, 76, 60, 0.5),
-                           0 0 15px rgba(231, 76, 60, 0.3),
-                           0 0 25px rgba(231, 76, 60, 0.2);
-                transform: rotate(-2deg);
-                pointer-events: auto;
-            }}
-            .logo-placeholder h1 {{
-                color: #1a237e;
-                font-weight: bold;
-                font-size: 16px;
-                margin: 0;
-                font-family: 'Arial Black', sans-serif;
-                letter-spacing: 1px;
-            }}
-            @media (max-width: 768px) {{
-                #mj-logo-fixed {{
-                    top: 70px !important;
-                    right: 10px !important;
-                }}
-                .logo-placeholder {{
-                    padding: 4px 8px;
-                }}
-                .logo-placeholder h1 {{
-                    font-size: 14px;
-                }}
-            }}
-        </style>
-        <div id="mj-logo-fixed">
-            <div class="logo-placeholder">
-                <h1>JOKET</h1>
+    with col_title:
+        st.title("🏒 Mailajoket Tilastoselain")
+        st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    
+    with col_logo:
+        if logo_found:
+            # Lue logo ja muunna base64:ksi
+            with open(logo_path_str, "rb") as img_file:
+                img_data = base64.b64encode(img_file.read()).decode()
+                img_ext = logo_path_str.split('.')[-1].lower()
+                mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
+            
+            st.markdown(f"""
+            <div style="
+                text-align: right;
+                margin-top: -25px;
+                margin-right: -10px;
+            ">
+                <img src="data:{mime_type};base64,{img_data}" 
+                     style="
+                         width: 60px;
+                         height: auto;
+                         filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
+                                 drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
+                                 drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
+                         border-radius: 6px;
+                         opacity: 0.9;
+                     " />
             </div>
-        </div>
-        <script>
-            (function() {{
-                // Varmista että logo pysyy kiinteänä scrollatessa
-                var logo = document.getElementById('mj-logo-fixed');
-                if (logo) {{
-                    logo.style.position = 'fixed';
-                    logo.style.top = '80px';
-                    logo.style.right = '20px';
-                    
-                    // Päivitä sijainti scrollatessa
-                    window.addEventListener('scroll', function() {{
-                        logo.style.position = 'fixed';
-                        logo.style.top = '80px';
-                        logo.style.right = '20px';
-                    }});
-                    
-                    // Päivitä sijainti resize-tapahtumassa
-                    window.addEventListener('resize', function() {{
-                        logo.style.position = 'fixed';
-                        logo.style.top = '80px';
-                        logo.style.right = '20px';
-                    }});
-                }}
-            }})();
-        </script>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
+        else:
+            # Placeholder logo
+            st.markdown("""
+            <div style="
+                text-align: right;
+                margin-top: -25px;
+                margin-right: -10px;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                    border: 2px solid #e74c3c;
+                    border-radius: 6px;
+                    padding: 6px 10px;
+                    text-align: center;
+                    display: inline-block;
+                    box-shadow: 0 0 8px rgba(231, 76, 60, 0.5),
+                               0 0 15px rgba(231, 76, 60, 0.3),
+                               0 0 25px rgba(231, 76, 60, 0.2);
+                    transform: rotate(-2deg);
+                ">
+                    <h1 style="
+                        color: #1a237e;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin: 0;
+                        font-family: 'Arial Black', sans-serif;
+                        letter-spacing: 1px;
+                    ">JOKET</h1>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
     
     # Tarkista että tiedosto on olemassa
     excel_path = Path(EXCEL_FILE_PATH)
