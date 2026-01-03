@@ -107,7 +107,7 @@ def main() -> None:
         st.markdown(f"""
         <div style="
             position: fixed;
-            top: 20px;
+            top: 60px;
             right: 20px;
             z-index: 999;
             opacity: 0.85;
@@ -128,7 +128,7 @@ def main() -> None:
         st.markdown("""
         <div style="
             position: fixed;
-            top: 20px;
+            top: 60px;
             right: 20px;
             z-index: 999;
             opacity: 0.85;
