@@ -65,7 +65,7 @@ def main() -> None:
             st.markdown(f"""
             <div style="
                 text-align: right;
-                margin-top: -25px;
+                margin-top: -35px;
                 margin-right: -10px;
             ">
                 <img src="data:{mime_type};base64,{img_data}" 
@@ -85,7 +85,7 @@ def main() -> None:
             st.markdown("""
             <div style="
                 text-align: right;
-                margin-top: -25px;
+                margin-top: -35px;
                 margin-right: -10px;
             ">
                 <div style="
