@@ -30,8 +30,85 @@ EXCEL_FILE_PATH = "mailajoket_2014_2026_dataworkbook.xlsx"
 
 def main() -> None:
     """Pääfunktio."""
-    st.title("🏒 Mailajoket Tilastoselain")
-    st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    # Logo oikeaan yläkulmaan
+    col_title, col_logo = st.columns([4, 1])
+    with col_title:
+        st.title("🏒 Mailajoket Tilastoselain")
+        st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    with col_logo:
+        # Logo oikeaan yläkulmaan hehkureunoilla
+        import base64
+        
+        logo_paths = [
+            Path("mj logo.jpeg"),
+            Path("assets/logo.png"),
+            Path("assets/logo.jpg"),
+            Path("assets/logo.jpeg")
+        ]
+        logo_found = False
+        logo_path_str = None
+        for logo_path in logo_paths:
+            if logo_path.exists():
+                logo_path_str = str(logo_path)
+                logo_found = True
+                break
+        
+        if logo_found:
+            # Lue logo ja muunna base64:ksi
+            with open(logo_path_str, "rb") as img_file:
+                img_data = base64.b64encode(img_file.read()).decode()
+                img_ext = logo_path_str.split('.')[-1].lower()
+                mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
+            
+            st.markdown(f"""
+            <div style="
+                text-align: right;
+                margin-top: -25px;
+                margin-right: -10px;
+            ">
+                <img src="data:{mime_type};base64,{img_data}" 
+                     style="
+                         width: 60px;
+                         height: auto;
+                         filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
+                                 drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
+                                 drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
+                         border-radius: 6px;
+                         opacity: 0.9;
+                     " />
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            # Placeholder logo HTML/CSS
+            st.markdown("""
+            <div style="
+                text-align: right;
+                margin-top: -25px;
+                margin-right: -10px;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                    border: 2px solid #e74c3c;
+                    border-radius: 6px;
+                    padding: 6px 10px;
+                    text-align: center;
+                    display: inline-block;
+                    box-shadow: 0 0 8px rgba(231, 76, 60, 0.5),
+                               0 0 15px rgba(231, 76, 60, 0.3),
+                               0 0 25px rgba(231, 76, 60, 0.2);
+                    transform: rotate(-2deg);
+                ">
+                    <h1 style="
+                        color: #1a237e;
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin: 0;
+                        font-family: 'Arial Black', sans-serif;
+                        letter-spacing: 1px;
+                    ">JOKET</h1>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
     
     # Tarkista että tiedosto on olemassa
     excel_path = Path(EXCEL_FILE_PATH)
@@ -79,82 +156,6 @@ def main() -> None:
     else:
         enriched_matches = None
         st.warning("Matches-taulukko puuttuu tai on tyhjä.")
-    
-    # Logo oikeaan yläkulmaan hehkureunoilla
-    import base64
-    
-    logo_paths = [
-        Path("mj logo.jpeg"),
-        Path("assets/logo.png"),
-        Path("assets/logo.jpg"),
-        Path("assets/logo.jpeg")
-    ]
-    logo_found = False
-    logo_path_str = None
-    for logo_path in logo_paths:
-        if logo_path.exists():
-            logo_path_str = str(logo_path)
-            logo_found = True
-            break
-    
-    if logo_found:
-        # Lue logo ja muunna base64:ksi
-        with open(logo_path_str, "rb") as img_file:
-            img_data = base64.b64encode(img_file.read()).decode()
-            img_ext = logo_path_str.split('.')[-1].lower()
-            mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
-        
-        st.markdown(f"""
-        <div style="
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            z-index: 999;
-            opacity: 0.85;
-        ">
-            <img src="data:{mime_type};base64,{img_data}" 
-                 style="
-                     width: 100px;
-                     height: auto;
-                     filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.5)) 
-                             drop-shadow(0 0 20px rgba(231, 76, 60, 0.3))
-                             drop-shadow(0 0 30px rgba(231, 76, 60, 0.2));
-                     border-radius: 8px;
-                 " />
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        # Placeholder logo HTML/CSS
-        st.markdown("""
-        <div style="
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            z-index: 999;
-            opacity: 0.85;
-        ">
-            <div style="
-                background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-                border: 3px solid #e74c3c;
-                border-radius: 8px;
-                padding: 10px 15px;
-                text-align: center;
-                box-shadow: 0 0 10px rgba(231, 76, 60, 0.5),
-                           0 0 20px rgba(231, 76, 60, 0.3),
-                           0 0 30px rgba(231, 76, 60, 0.2);
-                transform: rotate(-2deg);
-            ">
-                <h1 style="
-                    color: #1a237e;
-                    font-weight: bold;
-                    font-size: 24px;
-                    margin: 0;
-                    font-family: 'Arial Black', sans-serif;
-                    letter-spacing: 2px;
-                ">JOKET</h1>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
     
     # Infopainike (collapsible)
     with st.expander("💡 Voit muuttaa suodattimia vasemmasta laidasta", expanded=False):
