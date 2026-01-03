@@ -47,12 +47,8 @@ def main() -> None:
             logo_found = True
             break
     
-    # Logo oikeaan yläkulmaan otsikon viereen (ei kiinteä, häviää scrollatessa)
-    col_title, col_logo = st.columns([4, 1])
-    
-    with col_title:
-        st.title("🏒 Mailajoket Tilastoselain")
-        st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    # Logo vasempaan yläkulmaan (ei kiinteä, häviää scrollatessa)
+    col_logo, col_title = st.columns([1, 4])
     
     with col_logo:
         if logo_found:
@@ -64,9 +60,9 @@ def main() -> None:
             
             st.markdown(f"""
             <div style="
-                text-align: right;
+                text-align: left;
                 margin-top: -35px;
-                margin-right: -10px;
+                margin-left: -10px;
             ">
                 <img src="data:{mime_type};base64,{img_data}" 
                      style="
@@ -84,9 +80,9 @@ def main() -> None:
             # Placeholder logo
             st.markdown("""
             <div style="
-                text-align: right;
+                text-align: left;
                 margin-top: -35px;
-                margin-right: -10px;
+                margin-left: -10px;
             ">
                 <div style="
                     background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -111,6 +107,10 @@ def main() -> None:
                 </div>
             </div>
             """, unsafe_allow_html=True)
+    
+    with col_title:
+        st.title("🏒 Mailajoket Tilastoselain")
+        st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
     
     # Tarkista että tiedosto on olemassa
     excel_path = Path(EXCEL_FILE_PATH)
