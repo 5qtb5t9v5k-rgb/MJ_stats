@@ -63,32 +63,45 @@ def main() -> None:
                 mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
             
             st.markdown(f"""
-            <div style="
-                text-align: right;
-                margin-top: -35px;
-                margin-right: -10px;
-            ">
-                <img src="data:{mime_type};base64,{img_data}" 
-                     style="
-                         width: 60px;
-                         height: auto;
-                         filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
-                                 drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
-                                 drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
-                         border-radius: 6px;
-                         opacity: 0.9;
-                     " />
+            <style>
+                .mj-logo-container {{
+                    text-align: right;
+                    margin-top: -35px;
+                    margin-right: -10px;
+                }}
+                .mj-logo-container img {{
+                    width: 60px;
+                    height: auto;
+                    filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
+                            drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
+                            drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
+                    border-radius: 6px;
+                    opacity: 0.9;
+                }}
+                @media (max-width: 768px) {{
+                    .mj-logo-container {{
+                        margin-top: -25px;
+                        margin-right: 0px;
+                    }}
+                    .mj-logo-container img {{
+                        width: 40px;
+                    }}
+                }}
+            </style>
+            <div class="mj-logo-container">
+                <img src="data:{mime_type};base64,{img_data}" />
             </div>
             """, unsafe_allow_html=True)
         else:
             # Placeholder logo
             st.markdown("""
-            <div style="
-                text-align: right;
-                margin-top: -35px;
-                margin-right: -10px;
-            ">
-                <div style="
+            <style>
+                .mj-logo-container {{
+                    text-align: right;
+                    margin-top: -35px;
+                    margin-right: -10px;
+                }}
+                .mj-logo-placeholder {{
                     background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
                     border: 2px solid #e74c3c;
                     border-radius: 6px;
@@ -99,15 +112,31 @@ def main() -> None:
                                0 0 15px rgba(231, 76, 60, 0.3),
                                0 0 25px rgba(231, 76, 60, 0.2);
                     transform: rotate(-2deg);
-                ">
-                    <h1 style="
-                        color: #1a237e;
-                        font-weight: bold;
-                        font-size: 16px;
-                        margin: 0;
-                        font-family: 'Arial Black', sans-serif;
-                        letter-spacing: 1px;
-                    ">JOKET</h1>
+                }}
+                .mj-logo-placeholder h1 {{
+                    color: #1a237e;
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin: 0;
+                    font-family: 'Arial Black', sans-serif;
+                    letter-spacing: 1px;
+                }}
+                @media (max-width: 768px) {{
+                    .mj-logo-container {{
+                        margin-top: -25px;
+                        margin-right: 0px;
+                    }}
+                    .mj-logo-placeholder {{
+                        padding: 4px 8px;
+                    }}
+                    .mj-logo-placeholder h1 {{
+                        font-size: 12px;
+                    }}
+                }}
+            </style>
+            <div class="mj-logo-container">
+                <div class="mj-logo-placeholder">
+                    <h1>JOKET</h1>
                 </div>
             </div>
             """, unsafe_allow_html=True)
