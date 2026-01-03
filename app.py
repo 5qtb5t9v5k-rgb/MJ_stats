@@ -83,11 +83,21 @@ def main() -> None:
     # Logo ja infopainike (collapsible)
     col_logo, col_info = st.columns([1, 4])
     with col_logo:
-        # Logo - yritä ladata assets-kansiosta, muuten käytä placeholderia
-        logo_path = Path("assets/logo.png")
-        if logo_path.exists():
-            st.image(str(logo_path), width=150)
-        else:
+        # Logo - yritä ladata logotiedosto, muuten käytä placeholderia
+        logo_paths = [
+            Path("mj logo.jpeg"),
+            Path("assets/logo.png"),
+            Path("assets/logo.jpg"),
+            Path("assets/logo.jpeg")
+        ]
+        logo_found = False
+        for logo_path in logo_paths:
+            if logo_path.exists():
+                st.image(str(logo_path), width=150)
+                logo_found = True
+                break
+        
+        if not logo_found:
             # Placeholder logo HTML/CSS
             st.markdown("""
             <div style="
