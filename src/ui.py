@@ -758,7 +758,6 @@ def render_players_tab(
         team_id: Valitun joukkueen ID
     """
     st.header("Pelaajat")
-    st.info("💡 Voit muuttaa suodattimia vasemmasta laidasta.")
     
     if "PlayerSeasonStats" not in data or data["PlayerSeasonStats"].empty:
         st.info("Ei pelaajatilastoja saatavilla.")
