@@ -64,8 +64,9 @@ def main() -> None:
                 position: fixed !important;
                 top: 80px !important;
                 right: 20px !important;
-                z-index: 999 !important;
+                z-index: 999999 !important;
                 opacity: 0.9;
+                pointer-events: none;
             }}
             #mj-logo-fixed img {{
                 width: 60px;
@@ -74,6 +75,7 @@ def main() -> None:
                         drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
                         drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
                 border-radius: 6px;
+                pointer-events: auto;
             }}
             @media (max-width: 768px) {{
                 #mj-logo-fixed {{
@@ -89,13 +91,29 @@ def main() -> None:
             <img src="data:{mime_type};base64,{img_data}" />
         </div>
         <script>
-            // Varmista että logo pysyy kiinteänä
-            window.addEventListener('scroll', function() {{
+            (function() {{
+                // Varmista että logo pysyy kiinteänä scrollatessa
                 var logo = document.getElementById('mj-logo-fixed');
                 if (logo) {{
                     logo.style.position = 'fixed';
+                    logo.style.top = '80px';
+                    logo.style.right = '20px';
+                    
+                    // Päivitä sijainti scrollatessa
+                    window.addEventListener('scroll', function() {{
+                        logo.style.position = 'fixed';
+                        logo.style.top = '80px';
+                        logo.style.right = '20px';
+                    }});
+                    
+                    // Päivitä sijainti resize-tapahtumassa
+                    window.addEventListener('resize', function() {{
+                        logo.style.position = 'fixed';
+                        logo.style.top = '80px';
+                        logo.style.right = '20px';
+                    }});
                 }}
-            }});
+            }})();
         </script>
         """, unsafe_allow_html=True)
     else:
@@ -106,8 +124,9 @@ def main() -> None:
                 position: fixed !important;
                 top: 80px !important;
                 right: 20px !important;
-                z-index: 999 !important;
+                z-index: 999999 !important;
                 opacity: 0.9;
+                pointer-events: none;
             }}
             .logo-placeholder {{
                 background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -119,6 +138,7 @@ def main() -> None:
                            0 0 15px rgba(231, 76, 60, 0.3),
                            0 0 25px rgba(231, 76, 60, 0.2);
                 transform: rotate(-2deg);
+                pointer-events: auto;
             }}
             .logo-placeholder h1 {{
                 color: #1a237e;
@@ -147,13 +167,29 @@ def main() -> None:
             </div>
         </div>
         <script>
-            // Varmista että logo pysyy kiinteänä
-            window.addEventListener('scroll', function() {{
+            (function() {{
+                // Varmista että logo pysyy kiinteänä scrollatessa
                 var logo = document.getElementById('mj-logo-fixed');
                 if (logo) {{
                     logo.style.position = 'fixed';
+                    logo.style.top = '80px';
+                    logo.style.right = '20px';
+                    
+                    // Päivitä sijainti scrollatessa
+                    window.addEventListener('scroll', function() {{
+                        logo.style.position = 'fixed';
+                        logo.style.top = '80px';
+                        logo.style.right = '20px';
+                    }});
+                    
+                    // Päivitä sijainti resize-tapahtumassa
+                    window.addEventListener('resize', function() {{
+                        logo.style.position = 'fixed';
+                        logo.style.top = '80px';
+                        logo.style.right = '20px';
+                    }});
                 }}
-            }});
+            }})();
         </script>
         """, unsafe_allow_html=True)
     
