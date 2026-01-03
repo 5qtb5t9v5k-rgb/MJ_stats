@@ -30,85 +30,113 @@ EXCEL_FILE_PATH = "mailajoket_2014_2026_dataworkbook.xlsx"
 
 def main() -> None:
     """Pääfunktio."""
-    # Logo oikeaan yläkulmaan
-    col_title, col_logo = st.columns([4, 1])
-    with col_title:
-        st.title("🏒 Mailajoket Tilastoselain")
-        st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
-    with col_logo:
-        # Logo oikeaan yläkulmaan hehkureunoilla
-        import base64
+    st.title("🏒 Mailajoket Tilastoselain")
+    st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    
+    # Logo oikeaan yläkulmaan (kiinteä, responsiivinen)
+    import base64
+    
+    logo_paths = [
+        Path("mj logo.jpeg"),
+        Path("assets/logo.png"),
+        Path("assets/logo.jpg"),
+        Path("assets/logo.jpeg")
+    ]
+    logo_found = False
+    logo_path_str = None
+    for logo_path in logo_paths:
+        if logo_path.exists():
+            logo_path_str = str(logo_path)
+            logo_found = True
+            break
+    
+    if logo_found:
+        # Lue logo ja muunna base64:ksi
+        with open(logo_path_str, "rb") as img_file:
+            img_data = base64.b64encode(img_file.read()).decode()
+            img_ext = logo_path_str.split('.')[-1].lower()
+            mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
         
-        logo_paths = [
-            Path("mj logo.jpeg"),
-            Path("assets/logo.png"),
-            Path("assets/logo.jpg"),
-            Path("assets/logo.jpeg")
-        ]
-        logo_found = False
-        logo_path_str = None
-        for logo_path in logo_paths:
-            if logo_path.exists():
-                logo_path_str = str(logo_path)
-                logo_found = True
-                break
-        
-        if logo_found:
-            # Lue logo ja muunna base64:ksi
-            with open(logo_path_str, "rb") as img_file:
-                img_data = base64.b64encode(img_file.read()).decode()
-                img_ext = logo_path_str.split('.')[-1].lower()
-                mime_type = f"image/{img_ext}" if img_ext in ['png', 'jpg', 'jpeg'] else "image/jpeg"
-            
-            st.markdown(f"""
-            <div style="
-                text-align: right;
-                margin-top: -25px;
-                margin-right: -10px;
-            ">
-                <img src="data:{mime_type};base64,{img_data}" 
-                     style="
-                         width: 60px;
-                         height: auto;
-                         filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
-                                 drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
-                                 drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
-                         border-radius: 6px;
-                         opacity: 0.9;
-                     " />
+        st.markdown(f"""
+        <style>
+            .logo-container {{
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 999;
+                opacity: 0.9;
+            }}
+            .logo-container img {{
+                width: 60px;
+                height: auto;
+                filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
+                        drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
+                        drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
+                border-radius: 6px;
+            }}
+            @media (max-width: 768px) {{
+                .logo-container {{
+                    top: 5px;
+                    right: 5px;
+                }}
+                .logo-container img {{
+                    width: 50px;
+                }}
+            }}
+        </style>
+        <div class="logo-container">
+            <img src="data:{mime_type};base64,{img_data}" />
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        # Placeholder logo HTML/CSS
+        st.markdown("""
+        <style>
+            .logo-container {{
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 999;
+                opacity: 0.9;
+            }}
+            .logo-placeholder {{
+                background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+                border: 2px solid #e74c3c;
+                border-radius: 6px;
+                padding: 6px 10px;
+                text-align: center;
+                box-shadow: 0 0 8px rgba(231, 76, 60, 0.5),
+                           0 0 15px rgba(231, 76, 60, 0.3),
+                           0 0 25px rgba(231, 76, 60, 0.2);
+                transform: rotate(-2deg);
+            }}
+            .logo-placeholder h1 {{
+                color: #1a237e;
+                font-weight: bold;
+                font-size: 16px;
+                margin: 0;
+                font-family: 'Arial Black', sans-serif;
+                letter-spacing: 1px;
+            }}
+            @media (max-width: 768px) {{
+                .logo-container {{
+                    top: 5px;
+                    right: 5px;
+                }}
+                .logo-placeholder {{
+                    padding: 4px 8px;
+                }}
+                .logo-placeholder h1 {{
+                    font-size: 14px;
+                }}
+            }}
+        </style>
+        <div class="logo-container">
+            <div class="logo-placeholder">
+                <h1>JOKET</h1>
             </div>
-            """, unsafe_allow_html=True)
-        else:
-            # Placeholder logo HTML/CSS
-            st.markdown("""
-            <div style="
-                text-align: right;
-                margin-top: -25px;
-                margin-right: -10px;
-            ">
-                <div style="
-                    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-                    border: 2px solid #e74c3c;
-                    border-radius: 6px;
-                    padding: 6px 10px;
-                    text-align: center;
-                    display: inline-block;
-                    box-shadow: 0 0 8px rgba(231, 76, 60, 0.5),
-                               0 0 15px rgba(231, 76, 60, 0.3),
-                               0 0 25px rgba(231, 76, 60, 0.2);
-                    transform: rotate(-2deg);
-                ">
-                    <h1 style="
-                        color: #1a237e;
-                        font-weight: bold;
-                        font-size: 16px;
-                        margin: 0;
-                        font-family: 'Arial Black', sans-serif;
-                        letter-spacing: 1px;
-                    ">JOKET</h1>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
     
     # Tarkista että tiedosto on olemassa
     excel_path = Path(EXCEL_FILE_PATH)
