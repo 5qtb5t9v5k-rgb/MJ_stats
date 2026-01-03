@@ -30,10 +30,7 @@ EXCEL_FILE_PATH = "mailajoket_2014_2026_dataworkbook.xlsx"
 
 def main() -> None:
     """Pääfunktio."""
-    st.title("🏒 Mailajoket Tilastoselain")
-    st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
-    
-    # Logo oikeaan yläkulmaan (kiinteä, responsiivinen)
+    # Logo oikeaan yläkulmaan (kiinteä, ei liiku scrollatessa)
     import base64
     
     logo_paths = [
@@ -50,6 +47,10 @@ def main() -> None:
             logo_found = True
             break
     
+    st.title("🏒 Mailajoket Tilastoselain")
+    st.markdown("Selaa Mailajokkejen tilastoja vuosilta 2014-2025")
+    
+    # Logo oikeaan yläkulmaan (kiinteä JavaScriptillä)
     if logo_found:
         # Lue logo ja muunna base64:ksi
         with open(logo_path_str, "rb") as img_file:
@@ -59,48 +60,54 @@ def main() -> None:
         
         st.markdown(f"""
         <style>
-            .logo-container {{
+            #mj-logo-fixed {{
                 position: fixed !important;
                 top: 80px !important;
                 right: 20px !important;
                 z-index: 999 !important;
                 opacity: 0.9;
-                pointer-events: none;
             }}
-            .logo-container img {{
+            #mj-logo-fixed img {{
                 width: 60px;
                 height: auto;
                 filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.5)) 
                         drop-shadow(0 0 15px rgba(231, 76, 60, 0.3))
                         drop-shadow(0 0 25px rgba(231, 76, 60, 0.2));
                 border-radius: 6px;
-                pointer-events: auto;
             }}
             @media (max-width: 768px) {{
-                .logo-container {{
+                #mj-logo-fixed {{
                     top: 70px !important;
                     right: 10px !important;
                 }}
-                .logo-container img {{
+                #mj-logo-fixed img {{
                     width: 50px;
                 }}
             }}
         </style>
-        <div class="logo-container">
+        <div id="mj-logo-fixed">
             <img src="data:{mime_type};base64,{img_data}" />
         </div>
+        <script>
+            // Varmista että logo pysyy kiinteänä
+            window.addEventListener('scroll', function() {{
+                var logo = document.getElementById('mj-logo-fixed');
+                if (logo) {{
+                    logo.style.position = 'fixed';
+                }}
+            }});
+        </script>
         """, unsafe_allow_html=True)
     else:
-        # Placeholder logo HTML/CSS
+        # Placeholder logo
         st.markdown("""
         <style>
-            .logo-container {{
+            #mj-logo-fixed {{
                 position: fixed !important;
                 top: 80px !important;
                 right: 20px !important;
                 z-index: 999 !important;
                 opacity: 0.9;
-                pointer-events: none;
             }}
             .logo-placeholder {{
                 background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -112,7 +119,6 @@ def main() -> None:
                            0 0 15px rgba(231, 76, 60, 0.3),
                            0 0 25px rgba(231, 76, 60, 0.2);
                 transform: rotate(-2deg);
-                pointer-events: auto;
             }}
             .logo-placeholder h1 {{
                 color: #1a237e;
@@ -123,7 +129,7 @@ def main() -> None:
                 letter-spacing: 1px;
             }}
             @media (max-width: 768px) {{
-                .logo-container {{
+                #mj-logo-fixed {{
                     top: 70px !important;
                     right: 10px !important;
                 }}
@@ -135,11 +141,20 @@ def main() -> None:
                 }}
             }}
         </style>
-        <div class="logo-container">
+        <div id="mj-logo-fixed">
             <div class="logo-placeholder">
                 <h1>JOKET</h1>
             </div>
         </div>
+        <script>
+            // Varmista että logo pysyy kiinteänä
+            window.addEventListener('scroll', function() {{
+                var logo = document.getElementById('mj-logo-fixed');
+                if (logo) {{
+                    logo.style.position = 'fixed';
+                }}
+            }});
+        </script>
         """, unsafe_allow_html=True)
     
     # Tarkista että tiedosto on olemassa
