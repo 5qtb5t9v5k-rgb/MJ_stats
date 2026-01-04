@@ -80,11 +80,11 @@ def main() -> None:
                 }}
                 @media (max-width: 768px) {{
                     .mj-logo-container {{
-                        margin-top: -60px;
+                        margin-top: -110px;
                         margin-right: 0px;
                     }}
                     .mj-logo-container img {{
-                        width: 40px;
+                        width: 60px;
                     }}
                 }}
             </style>
