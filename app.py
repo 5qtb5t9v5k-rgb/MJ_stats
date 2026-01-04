@@ -66,7 +66,7 @@ def main() -> None:
             <style>
                 .mj-logo-container {{
                     text-align: right;
-                    margin-top: -50px;
+                    margin-top: -35px;
                     margin-right: -10px;
                 }}
                 .mj-logo-container img {{
@@ -80,7 +80,7 @@ def main() -> None:
                 }}
                 @media (max-width: 768px) {{
                     .mj-logo-container {{
-                        margin-top: -35px;
+                        margin-top: -60px;
                         margin-right: 0px;
                     }}
                     .mj-logo-container img {{
@@ -98,7 +98,7 @@ def main() -> None:
             <style>
                 .mj-logo-container {{
                     text-align: right;
-                    margin-top: -50px;
+                    margin-top: -35px;
                     margin-right: -10px;
                 }}
                 .mj-logo-placeholder {{
@@ -123,7 +123,7 @@ def main() -> None:
                 }}
                 @media (max-width: 768px) {{
                     .mj-logo-container {{
-                        margin-top: -35px;
+                        margin-top: -60px;
                         margin-right: 0px;
                     }}
                     .mj-logo-placeholder {{
